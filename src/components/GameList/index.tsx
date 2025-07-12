@@ -2,6 +2,7 @@ import { ListWrapper } from './styles'
 import { GameListProps } from './types'
 import { GameCard } from '@/components/GameCard'
 
+// TODO! No games found design
 export const GameList = ({
   games,
   initialLoading,

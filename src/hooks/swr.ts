@@ -12,7 +12,6 @@ const makeFetcher = (options?: AxiosRequestConfig) => {
         'Content-Type': 'application/json',
       },
       data: data?.arg,
-      // withCredentials: true,
     })
 
     if (response.headers.getContentLength === 0) return null
@@ -22,10 +21,3 @@ const makeFetcher = (options?: AxiosRequestConfig) => {
 }
 
 export const get = makeFetcher
-
-// TODO! Delete
-export const post = (options?: AxiosRequestConfig) => makeFetcher({ ...options, method: 'POST' })
-
-export const patch = (options?: AxiosRequestConfig) => makeFetcher({ ...options, method: 'PATCH' })
-
-export const del = (options?: AxiosRequestConfig) => makeFetcher({ ...options, method: 'DELETE' })

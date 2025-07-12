@@ -1,4 +1,6 @@
-export const buildQuery = (page: number, query: string, filters: Map<string, never>) => {
+import { FilterType } from '@/components/ListContext'
+
+export const buildQuery = (page: number, query: string, filters: Map<string, FilterType>) => {
   const params = new URLSearchParams()
 
   // Constant basic query
@@ -14,7 +16,7 @@ export const buildQuery = (page: number, query: string, filters: Map<string, nev
 
   // Filters
   for (const [key, value] of Array.from(filters)) {
-    if (value) params.set(key, value)
+    if (value) params.set(key, value.toString())
   }
 
   // Sort params to avoid duplicate requests due to different key orders
