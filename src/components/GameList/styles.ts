@@ -22,6 +22,6 @@ export const ListWrapper = styled(PaginationObserver)`
   }
 
   ${WideScreen} {
-    grid-template: auto / repeat(4, 4fr);
+    grid-template: auto / repeat(4, 1fr);
   }
 `
