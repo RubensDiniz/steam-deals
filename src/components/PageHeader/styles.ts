@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 export const HeaderWrapper = styled.div`
   position: fixed;
   display: flex;
-  padding: 2rem 5rem 1rem;
+  padding: 1.5rem 5rem 1.5rem;
 
   gap: 1rem;
 

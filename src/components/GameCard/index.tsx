@@ -22,15 +22,17 @@ export const GameCard = ({ game }: GameCardProps) => {
       >
         {game.title}
       </span>
-      <span style={{
-        display: '-webkit-box',
-        WebkitBoxOrient: 'vertical',
-        WebkitLineClamp: 1,
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      }}>
-        {game.normalPrice} -> {game.salePrice} ({Number(game.savings).toFixed(0)}%) |{' '}
-        {game.dealRating}/10
+      <span
+        style={{
+          display: '-webkit-box',
+          WebkitBoxOrient: 'vertical',
+          WebkitLineClamp: 1,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {game.normalPrice} {`->`} {game.salePrice} ({Number(game.savings).toFixed(0)}%) |{' '}
+        {Number(game.dealRating)}/10
       </span>
     </Card>
   )

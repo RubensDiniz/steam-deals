@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction } from 'react'
 import { FilterType } from '@/components/ListContext'
 
 export type SortOption = { label: string; value: string }
 
-export type ListSortByType = {
+export type ListSortByProps = {
   options: SortOption[]
-  setFilters: Dispatch<SetStateAction<Map<string, FilterType>>>
+  onUpdateSort: (updater: (prev: Map<string, FilterType>) => Map<string, FilterType>) => void
+  isDescending: boolean
 }

@@ -4,7 +4,7 @@ import { ListContextProps, FilterType } from './types'
 export const ListContext = createContext<ListContextProps>({
   onSearch: () => undefined,
   filters: new Map(),
-  setFilters: () => undefined,
+  onUpdateFilters: () => undefined,
 })
 
 export const useListContext = () => useContext(ListContext)
