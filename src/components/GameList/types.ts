@@ -4,5 +4,6 @@ export type GameListProps = {
   games: Game[]
   initialLoading: boolean
   paginationLoading: boolean
+  paginationDisabled: boolean
   onEndOfList: () => void
 }

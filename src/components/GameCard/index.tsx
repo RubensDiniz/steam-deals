@@ -1,6 +1,7 @@
 import { Game, GameCardProps } from './types'
 import { Card, GameImage } from './styles'
 
+// TODO! Treat when image not found
 export const GameCard = ({ game }: GameCardProps) => {
   return (
     <Card>
@@ -10,8 +11,28 @@ export const GameCard = ({ game }: GameCardProps) => {
         width={460}
         height={215}
       />
-      <span>
-        {game.title} / {game.salePrice}
+      <span
+        style={{
+          display: '-webkit-box',
+          WebkitBoxOrient: 'vertical',
+          WebkitLineClamp: 1,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {game.title}
+      </span>
+      <span
+        style={{
+          display: '-webkit-box',
+          WebkitBoxOrient: 'vertical',
+          WebkitLineClamp: 1,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {game.normalPrice} {`->`} {game.salePrice} ({Number(game.savings).toFixed(0)}%) |{' '}
+        {Number(game.dealRating)}/10
       </span>
     </Card>
   )

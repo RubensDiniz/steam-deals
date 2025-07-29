@@ -3,6 +3,8 @@ import Image from 'next/image'
 
 export const Card = styled.div`
   display: flex;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
 
   border-radius: 6px;
@@ -14,7 +16,7 @@ export const Card = styled.div`
 
 export const GameImage = styled(Image)`
   max-width: 100%;
-  height: auto;
+  height: 100%;
 
   aspect-ratio: 2.1395;
 `
