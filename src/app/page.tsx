@@ -1,5 +1,4 @@
 'use client'
-import styles from './page.module.css'
 import useSWR from 'swr'
 import { get } from '@/hooks'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -28,12 +27,12 @@ export default function Home() {
   const onUpdateFilters = useCallback(
     (updater: (prev: Map<string, FilterType>) => Map<string, FilterType>) => {
       setFilters((prev) => {
-        const updated = updater(prev)
+        const updatedFilters = updater(prev)
         setCurrentPage(1)
         setLoadedGames([])
         setIsLastPage(false)
         setIsLoadingPage(true)
-        return updated
+        return updatedFilters
       })
     },
     []
@@ -62,18 +61,16 @@ export default function Home() {
   }, [data, currentPage])
 
   return (
-    <div className={styles.page}>
+    <div style={{ width: '100%', padding: '80px 80px 0' }}>
       <GameList
         games={loadedGames}
-        // TODO! If no results found on query, initialLoading should be false
         initialLoading={isLoadingPage && currentPage === 1}
-        // TODO! Test for double loads
+        // initialLoading={true}
         // TODO! Treat duplicated items (one-offs)
-        paginationLoading={isLoadingPage && currentPage > 1}
         paginationDisabled={isLoadingPage || isLastPage}
-        // paginationDisabled // TODO!
+        // paginationDisabled={true}
+        isLastPage={isLastPage}
         onEndOfList={() => {
-          console.log('AAAA')
           setIsLoadingPage(true)
           setCurrentPage((prev) => prev + 1)
         }}

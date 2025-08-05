@@ -1,29 +1,39 @@
 import { ListWrapper } from './styles'
 import { GameListProps } from './types'
-import { GameCard } from '@/components/GameCard'
+import { GameCard, SkeletonGameCard } from '@/components/GameCard'
+import { useScreenSize } from '@/components/ScreenSizeProvider'
 
 // TODO! "No games found" design
 export const GameList = ({
   games,
   initialLoading,
-  paginationLoading,
   paginationDisabled,
+  isLastPage,
   onEndOfList,
-}: GameListProps) => (
-  <ListWrapper onEndOfList={onEndOfList} disabled={paginationDisabled}>
-    {initialLoading ? (
-      <span>Loading...</span>
-    ) : (
-      games.map(
-        (game) =>
-          game && (
-            <div key={game.steamAppID}>
-              <GameCard game={game} />
-            </div>
-          )
-      )
-    )}
-    {paginationLoading && <span>LOADING MORE...</span>}
-    {/* TODO! Always show pagination, and change observer offset */}
-  </ListWrapper>
-)
+}: GameListProps) => {
+  const { size } = useScreenSize()
+
+  // TODO! Check if offset is correct on all resolutions
+  return (
+    <ListWrapper onEndOfList={onEndOfList} disabled={paginationDisabled} offset={276}>
+      {initialLoading ? (
+        Array.from({ length: 20 }, (_, i) => <SkeletonGameCard index={(i % 4) + i / 4} key={i} />)
+      ) : (
+        <>
+          {games.map(
+            (game) =>
+              game && (
+                <div key={game.steamAppID}>
+                  <GameCard game={game} />
+                </div>
+              )
+          )}
+          {!isLastPage &&
+            Array.from({ length: size === 'small' ? 2 : size === 'medium' ? 3 : 4 }, (_, i) => (
+              <SkeletonGameCard index={i % 4} key={i} />
+            ))}
+        </>
+      )}
+    </ListWrapper>
+  )
+}
