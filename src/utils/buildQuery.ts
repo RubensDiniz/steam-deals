@@ -7,7 +7,7 @@ export const buildQuery = (page: number, query: string, filters: Map<string, Fil
   params.set('onSale', '1')
   params.set('storeID', '1')
   params.set('pageSize', '24')
-  // params.set('upperPrice', '15') TODO!
+  // params.set('upperPrice', '15') TODO? Also review filter default
 
   // Query (game title)
   if (query.length) params.set('title', query)

@@ -1,15 +1,25 @@
-import { Game, GameCardProps } from './types'
-import { Card, GameImage } from './styles'
+'use client'
+import { Game, GameCardProps, SkeletonGameCardProps } from './types'
+import { Card, GameImage, Content, SkeletonCard } from './styles'
+import { useState } from 'react'
 
-// TODO! Treat when image not found
 export const GameCard = ({ game }: GameCardProps) => {
+  const [imageSrc, setImageSrc] = useState(
+    `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${game.steamAppID}/header.jpg`
+  )
+
+  // TODO! Get a better generic src for onError
+
   return (
     <Card>
       <GameImage
-        src={`https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${game.steamAppID}/header.jpg`}
+        src={imageSrc}
         alt={game.title}
         width={460}
         height={215}
+        onError={() =>
+          setImageSrc('https://cdn2.steamgriddb.com/thumb/0e18441e60c88b9af7ebde5cdf65a23a.jpg')
+        }
       />
       <span
         style={{
@@ -38,6 +48,10 @@ export const GameCard = ({ game }: GameCardProps) => {
   )
 }
 
-// TODO! SkeletonCard
+export const SkeletonGameCard = ({ index }: SkeletonGameCardProps) => (
+  <SkeletonCard index={index}>
+    <Content />
+  </SkeletonCard>
+)
 
 export type { Game }

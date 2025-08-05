@@ -10,6 +10,8 @@ export const ListWrapper = styled(PaginationObserver)`
   position: relative;
   display: grid;
   grid-gap: 1rem;
+  
+  width: 100%;
 
   /* TODO! grid-auto-rows height? */
 

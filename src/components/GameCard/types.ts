@@ -23,3 +23,7 @@ export type Game = {
 export type GameCardProps = {
   game: Game
 }
+
+export type SkeletonGameCardProps = {
+  index?: number
+}
