@@ -14,6 +14,7 @@ export const GameList = ({
   const { size } = useScreenSize()
 
   // TODO! Check if offset is correct on all resolutions
+  // TODO! Duplicated games when switching tabs... investigate!
   return (
     <ListWrapper onEndOfList={onEndOfList} disabled={paginationDisabled} offset={276}>
       {initialLoading ? (

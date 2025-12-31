@@ -61,7 +61,7 @@ export default function Home() {
   }, [data, currentPage])
 
   return (
-    <div style={{ width: '100%', padding: '80px 80px 0' }}>
+    <>
       <GameList
         games={loadedGames}
         initialLoading={isLoadingPage && currentPage === 1}
@@ -78,6 +78,6 @@ export default function Home() {
       <ListContext.Provider value={{ onSearch, filters, onUpdateFilters }}>
         <PageHeader />
       </ListContext.Provider>
-    </div>
+    </>
   )
 }

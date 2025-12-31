@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { PaginationObserver } from '@/components/PaginationObserver'
-import { LargeScreen, SmallScreen, WideScreen } from '@/components/Theme'
+import { LargeScreen, MediumScreen, WideScreen } from '@/components/Theme'
 
 export const ListWrapper = styled(PaginationObserver)`
   list-style: none;
@@ -10,20 +10,21 @@ export const ListWrapper = styled(PaginationObserver)`
   position: relative;
   display: grid;
   grid-gap: 1rem;
-  
+
   width: 100%;
+  max-width: fit-content;
 
-  /* TODO! grid-auto-rows height? */
+  grid-template-columns: 1fr;
 
-  ${SmallScreen} {
-    grid-template: auto / repeat(2, 1fr);
+  ${MediumScreen} {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   ${LargeScreen} {
-    grid-template: auto / repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   ${WideScreen} {
-    grid-template: auto / repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 `

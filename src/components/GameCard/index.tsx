@@ -1,12 +1,38 @@
 'use client'
 import { Game, GameCardProps, SkeletonGameCardProps } from './types'
-import { Card, GameImage, Content, SkeletonCard } from './styles'
+import {
+  Card,
+  GameImage,
+  SkeletonContent,
+  SkeletonCard,
+  GameInfo,
+  GameInfoHeader,
+  GameTitle,
+  ButtonContainer,
+  StatsFooter,
+  GameRatingColumn,
+  StatLabel,
+  StatValue,
+  PriceColumn,
+  DiscountBadge,
+  PriceContainer,
+  OriginalPrice,
+  CurrentPrice,
+  DealRatingColumn,
+} from './styles'
 import { useState } from 'react'
 
 export const GameCard = ({ game }: GameCardProps) => {
   const [imageSrc, setImageSrc] = useState(
     `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${game.steamAppID}/header.jpg`
   )
+
+  const gameRating =
+    Number(game.steamRatingPercent) >= 75
+      ? 'high'
+      : Number(game.steamRatingPercent) >= 50
+        ? 'medium'
+        : 'low'
 
   // TODO! Get a better generic src for onError
 
@@ -21,36 +47,41 @@ export const GameCard = ({ game }: GameCardProps) => {
           setImageSrc('https://cdn2.steamgriddb.com/thumb/0e18441e60c88b9af7ebde5cdf65a23a.jpg')
         }
       />
-      <span
-        style={{
-          display: '-webkit-box',
-          WebkitBoxOrient: 'vertical',
-          WebkitLineClamp: 1,
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        {game.title}
-      </span>
-      <span
-        style={{
-          display: '-webkit-box',
-          WebkitBoxOrient: 'vertical',
-          WebkitLineClamp: 1,
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        {game.normalPrice} {`->`} {game.salePrice} ({Number(game.savings).toFixed(0)}%) |{' '}
-        {Number(game.dealRating)}/10
-      </span>
+      <GameInfo>
+        <GameInfoHeader>
+          <GameTitle>{game.title}</GameTitle>
+          {/*<ButtonContainer>*/}
+          {/*  <span>O</span>*/}
+          {/*</ButtonContainer>*/}
+        </GameInfoHeader>
+        <StatsFooter>
+          <GameRatingColumn data-rating={gameRating}>
+            <StatLabel data-light={gameRating === 'low'}>Steam Rating</StatLabel>
+            <StatValue>{game.steamRatingPercent}</StatValue>
+          </GameRatingColumn>
+
+          <DealRatingColumn>
+            <StatLabel data-light>Deal Rating</StatLabel>
+            <StatValue>{game.dealRating}</StatValue>
+          </DealRatingColumn>
+
+          <PriceColumn>
+            <DiscountBadge>-{Math.round(Number(game.savings))}%</DiscountBadge>
+            <PriceContainer>
+              <OriginalPrice>${game.normalPrice}</OriginalPrice>
+              <CurrentPrice>${game.salePrice}</CurrentPrice>
+            </PriceContainer>
+          </PriceColumn>
+        </StatsFooter>
+      </GameInfo>
     </Card>
   )
 }
 
+// TODO!
 export const SkeletonGameCard = ({ index }: SkeletonGameCardProps) => (
   <SkeletonCard index={index}>
-    <Content />
+    <SkeletonContent />
   </SkeletonCard>
 )
 
