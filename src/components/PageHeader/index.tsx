@@ -9,6 +9,7 @@ export const PageHeader = () => {
 
   const sortOptions: SortOption[] = [
     { label: 'Deal Rating', value: 'DealRating' },
+    { label: 'Reviews', value: 'Reviews' },
     {
       label: 'Title',
       value: 'Title',

@@ -27,17 +27,13 @@ export const GameCard = ({ game }: GameCardProps) => {
     `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${game.steamAppID}/header.jpg`
   )
 
-  const gameRating =
-    Number(game.steamRatingPercent) >= 75
-      ? 'high'
-      : Number(game.steamRatingPercent) >= 50
-        ? 'medium'
-        : 'low'
+  const getRating = (rating: number): string =>
+    rating >= 70 ? 'high' : rating >= 40 ? 'medium' : 'low'
 
   // TODO! Get a better generic src for onError
 
   return (
-    <Card>
+    <Card href={`https://www.cheapshark.com/redirect?dealID=${game.dealID}`}>
       <GameImage
         src={imageSrc}
         alt={game.title}
@@ -50,17 +46,15 @@ export const GameCard = ({ game }: GameCardProps) => {
       <GameInfo>
         <GameInfoHeader>
           <GameTitle>{game.title}</GameTitle>
-          {/*<ButtonContainer>*/}
-          {/*  <span>O</span>*/}
-          {/*</ButtonContainer>*/}
+          <ButtonContainer data-role="card-action">🛈</ButtonContainer>
         </GameInfoHeader>
         <StatsFooter>
-          <GameRatingColumn data-rating={gameRating}>
-            <StatLabel data-light={gameRating === 'low'}>Steam Rating</StatLabel>
+          <GameRatingColumn data-rating={getRating(Number(game.steamRatingPercent))}>
+            <StatLabel>Steam Rating</StatLabel>
             <StatValue>{game.steamRatingPercent}</StatValue>
           </GameRatingColumn>
 
-          <DealRatingColumn>
+          <DealRatingColumn data-rating={getRating(Number(game.dealRating) * 10)}>
             <StatLabel data-light>Deal Rating</StatLabel>
             <StatValue>{game.dealRating}</StatValue>
           </DealRatingColumn>

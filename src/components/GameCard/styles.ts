@@ -3,8 +3,10 @@ import Image from 'next/image'
 import { SkeletonGameCardProps } from './types'
 import { css } from '@emotion/react'
 import { makeSkeletonBackgroundAnimation } from '@/utils'
+import Link from 'next/link'
+import { theme } from '@/components/Theme'
 
-export const Card = styled.div`
+const BaseCardStyles = css`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -14,9 +16,16 @@ export const Card = styled.div`
 
   overflow: hidden;
 
-  background-color: ${({ theme }) => theme.colors.card.background};
+  background-color: ${theme.colors.card.background};
 
-  box-shadow: 0 0.286rem 0.429rem ${({ theme }) => theme.colors.card.shadow};
+  box-shadow: 0 0.286rem 0.429rem ${theme.colors.card.shadow};
+`
+
+export const Card = styled(Link)`
+  ${BaseCardStyles}
+  &:hover [data-role="card-action"] {
+    opacity: 1;
+  }
 `
 
 export const GameImage = styled(Image)`
@@ -38,9 +47,11 @@ export const GameInfo = styled.div`
 `
 
 export const GameInfoHeader = styled.div`
+  position: relative;
   display: flex;
   gap: 0.571rem;
   padding: 0.857rem;
+  height: calc(3.36rem + (0.857rem * 2));
 `
 
 export const GameTitle = styled.span`
@@ -48,10 +59,9 @@ export const GameTitle = styled.span`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 
-  flex: 1;
-  min-width: 0;
+  width: 100%;
 
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.4;
   color: ${({ theme }) => theme.colors.card.title};
@@ -59,18 +69,25 @@ export const GameTitle = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
-
-  /* Fixed height for exactly 2 lines: 0.875rem * 1.4 * 2 = 2.45rem */
-  height: 2.8rem;
-  max-height: 2.8rem; // Redundant but ensures no overflow
 `
 
 export const ButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 
-  background-color: red;
+  display: flex;
+  width: 2.143rem;
+  height: 2.143rem;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 0.429rem 0 0 0;
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  background-color: #344654;
 `
 
 export const StatsFooter = styled.div`
@@ -82,12 +99,11 @@ export const StatsFooter = styled.div`
 
 export const StatColumn = styled.div`
   display: flex;
-  flex: 1;
   flex-direction: column;
-
-  padding: 0 0.857rem;
   align-items: center;
   justify-content: center;
+  padding: 0 0.857rem;
+  flex: 1;
 
   border-right: 1px solid ${({ theme }) => theme.colors.card.border};
 
@@ -96,8 +112,43 @@ export const StatColumn = styled.div`
   }
 `
 
+export const StatLabel = styled.span`
+  margin-bottom: 0.143rem;
+
+  text-align: center;
+  font-size: 0.643rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+`
+
+export const StatValue = styled.span`
+  font-size: 1.429rem;
+  font-weight: 900;
+`
+
+// TODO! Colors
 export const GameRatingColumn = styled(StatColumn)`
-  color: rgba(27, 40, 56, 0.75);
+  color: ${({ theme }) => theme.colors.card.backgroundDark};
+
+  &[data-rating='high'] {
+    background-color: #66c0f4;
+  }
+
+  &[data-rating='medium'] {
+    background-color: #b9a074;
+  }
+
+  &[data-rating='low'] {
+    background-color: #c85e2d;
+    color: ${({ theme }) => theme.colors.card.title};
+  }
+`
+
+/* TODO! Delete this
+&[data-rating='very-high'] {
+    background-color: #66cc33;
+  }
 
   &[data-rating='high'] {
     background-color: #66cc33;
@@ -109,35 +160,39 @@ export const GameRatingColumn = styled(StatColumn)`
 
   &[data-rating='low'] {
     background-color: #ff3333;
+    color: ${({ theme }) => theme.colors.card.title};
+  }
+
+  &[data-rating='very-low'] {
+    background-color: #ff3333;
+    color: ${({ theme }) => theme.colors.card.title};
+  }
+ */
+
+// TODO! COLORS
+export const DealRatingColumn = styled(StatColumn)`
+  color: ${({ theme }) => theme.colors.card.originalPrice};
+
+  &[data-rating='high'] {
+    color: #66c0f4;
+  }
+
+  &[data-rating='medium'] {
+    color: #b9a074;
+  }
+
+  &[data-rating='low'] {
+    color: #c85e2d;
   }
 `
 
-export const StatLabel = styled.span`
-  text-align: center;
-  font-size: 9px;
-
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 2px;
-`
-
-export const StatValue = styled.span`
-  font-size: 20px;
-  font-weight: 900;
-`
-
-export const DealRatingColumn = styled(StatColumn)`
-  color: #738895;
-`
-
 export const PriceColumn = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
-
-  justify-content: flex-end;
+  justify-content: center;
   padding: 0.857rem;
+  flex: 1;
+
   border-left: 1px solid ${({ theme }) => theme.colors.card.border};
 `
 
@@ -153,15 +208,16 @@ export const DiscountBadge = styled.span`
   background-color: ${({ theme }) => theme.colors.card.discountBackground};
 `
 
+// TODO! COLOR
 export const PriceContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 4.4rem;
   justify-content: center;
+  align-items: flex-end;
   padding: 0 0.429rem 0 0.786rem;
   height: 2.286rem;
+  max-width: 4.4rem;
 
-  align-items: flex-end;
   line-height: 1;
 
   background-color: #344654;
@@ -185,7 +241,9 @@ export const CurrentPrice = styled.span`
 
 // TODO! Calculate bottom padding properly?
 // TODO! Replace colors...
-export const SkeletonCard = styled(Card)<SkeletonGameCardProps>`
+export const SkeletonCard = styled.div<SkeletonGameCardProps>`
+  ${BaseCardStyles};
+
   animation: ${({ index }) =>
     index !== undefined
       ? css`
