@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 
 export const RelativeParent = styled.div`
-    position: relative;
+  position: relative;
 
-    > span {
-        display: inline-block;
-    }
+  > span {
+    display: inline-block;
+  }
 `
 
 interface ObserverProps {
@@ -13,11 +13,11 @@ interface ObserverProps {
 }
 
 export const Observer = styled.div<ObserverProps>`
-    position: absolute;
-    pointer-events: none;
-    z-index: -1;
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
 
-    bottom: 0;
-    left: 50%;
-    height: ${({ offset }) => `${offset}px`};
+  bottom: 0;
+  left: 50%;
+  height: ${({ offset }) => `${offset}px`};
 `

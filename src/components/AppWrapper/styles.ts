@@ -30,4 +30,6 @@ export const PageContainer = styled.div`
   justify-content: center;
   width: 100%;
   padding: 7.143rem 1rem 0;
+
+  background-color: #1b2838;
 `

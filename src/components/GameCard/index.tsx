@@ -19,8 +19,10 @@ import {
   OriginalPrice,
   CurrentPrice,
   DealRatingColumn,
+  StatTooltip,
 } from './styles'
 import { useState } from 'react'
+import { Tooltip } from '@/components/Tooltip'
 
 export const GameCard = ({ game }: GameCardProps) => {
   const [imageSrc, setImageSrc] = useState(
@@ -49,10 +51,20 @@ export const GameCard = ({ game }: GameCardProps) => {
           <ButtonContainer data-role="card-action">🛈</ButtonContainer>
         </GameInfoHeader>
         <StatsFooter>
-          <GameRatingColumn data-rating={getRating(Number(game.steamRatingPercent))}>
-            <StatLabel>Steam Rating</StatLabel>
-            <StatValue>{game.steamRatingPercent}</StatValue>
-          </GameRatingColumn>
+          <Tooltip
+            content={
+              <StatTooltip>
+                <span>{game.steamRatingText}</span>
+                <span>({game.steamRatingCount} reviews)</span>
+              </StatTooltip>
+            }
+            placement={'bottom-start'}
+          >
+            <GameRatingColumn data-rating={getRating(Number(game.steamRatingPercent))}>
+              <StatLabel>Steam Rating</StatLabel>
+              <StatValue>{game.steamRatingPercent}</StatValue>
+            </GameRatingColumn>
+          </Tooltip>
 
           <DealRatingColumn data-rating={getRating(Number(game.dealRating) * 10)}>
             <StatLabel data-light>Deal Rating</StatLabel>

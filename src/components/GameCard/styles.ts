@@ -100,6 +100,7 @@ export const StatsFooter = styled.div`
 export const StatColumn = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
   align-items: center;
   justify-content: center;
   padding: 0 0.857rem;
@@ -127,20 +128,25 @@ export const StatValue = styled.span`
   font-weight: 900;
 `
 
+export const StatTooltip = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 // TODO! Colors
 export const GameRatingColumn = styled(StatColumn)`
   color: ${({ theme }) => theme.colors.card.backgroundDark};
 
   &[data-rating='high'] {
-    background-color: #66c0f4;
+    background-color: #66cc33;
   }
 
   &[data-rating='medium'] {
-    background-color: #b9a074;
+    background-color: #ffcc33;
   }
 
   &[data-rating='low'] {
-    background-color: #c85e2d;
+    background-color: #ff3333;
     color: ${({ theme }) => theme.colors.card.title};
   }
 `
@@ -174,15 +180,15 @@ export const DealRatingColumn = styled(StatColumn)`
   color: ${({ theme }) => theme.colors.card.originalPrice};
 
   &[data-rating='high'] {
-    color: #66c0f4;
+    color: #66cc33;
   }
 
   &[data-rating='medium'] {
-    color: #b9a074;
+    color: #ffcc33;
   }
 
   &[data-rating='low'] {
-    color: #c85e2d;
+    color: #ff3333;
   }
 `
 
@@ -200,12 +206,12 @@ export const DiscountBadge = styled.span`
   height: 2.286rem;
   padding: 0 0.429rem;
 
-  color: ${({ theme }) => theme.colors.card.discountText};
+  color: ${({ theme }) => theme.colors.card.discountLight};
   font-size: 1.786rem;
   font-weight: 700;
   line-height: 2.286rem;
 
-  background-color: ${({ theme }) => theme.colors.card.discountBackground};
+  background-color: ${({ theme }) => theme.colors.card.discountDark};
 `
 
 // TODO! COLOR
@@ -224,19 +230,17 @@ export const PriceContainer = styled.div`
 `
 
 export const OriginalPrice = styled.span`
-  margin-bottom: 0.143rem;
-
   color: ${({ theme }) => theme.colors.card.originalPrice};
   font-size: 0.786rem;
-  //line-height: 0.857rem;
+  line-height: 0.857rem;
   text-decoration: line-through;
 `
 
 export const CurrentPrice = styled.span`
-  color: ${({ theme }) => theme.colors.card.discountText};
+  color: ${({ theme }) => theme.colors.card.discountLight};
   font-weight: 400;
   font-size: 1rem;
-  //line-height: 1.143rem;
+  line-height: 1.143rem;
 `
 
 // TODO! Calculate bottom padding properly?
