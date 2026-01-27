@@ -7,11 +7,15 @@ export const HeaderRow = styled.div`
   display: flex;
   justify-content: center;
   position: fixed;
-  padding: 1.5rem 0;
+  padding: 1.25rem 0;
 
   top: 0;
   left: 0;
   right: 0;
+
+  ${MediumPlusScreen} {
+    padding: 1.5rem 0;
+  }
 `
 
 export const HeaderMainRow = styled(HeaderRow)`
@@ -41,30 +45,34 @@ export const RowContent = styled.div`
 `
 
 export const LogoLeft = styled(DiscountContainer)`
-  height: 2.857rem;
-  padding: 0 0.536rem;
+  ${MediumPlusScreen} {
+    height: 2.857rem;
+    padding: 0 0.536rem;
 
-  font-size: 2.214rem;
-  line-height: 2.857rem;
+    font-size: 2.214rem;
+    line-height: 2.857rem;
+  }
 `
 
 export const LogoRight = styled(PriceContainer)`
-  height: 2.857rem;
+  ${MediumPlusScreen} {
+    height: 2.857rem;
 
-  > span[data-price='original'] {
-    font-size: 0.982rem;
-    line-height: 1.07rem;
-    text-decoration: unset;
-  }
+    > span[data-price='original'] {
+      font-size: 0.982rem;
+      line-height: 1.07rem;
+      text-decoration: unset;
+    }
 
-  > span[data-price='current'] {
-    font-size: 1.25rem;
-    line-height: 1.428rem;
+    > span[data-price='current'] {
+      font-size: 1.25rem;
+      line-height: 1.428rem;
+    }
   }
 `
 
 export const HeaderFilterRow = styled(HeaderRow)`
-  top: -0.429rem;
+  top: -2.143rem;
 
   padding: 1rem 0;
 
@@ -74,7 +82,7 @@ export const HeaderFilterRow = styled(HeaderRow)`
   transition: top 0.5s ease;
 
   &[data-is-open='true'] {
-    top: 10.643rem;
+    top: 9.071rem;
   }
 
   ${MediumPlusScreen} {
@@ -92,7 +100,7 @@ export const FiltersWrapper = styled(RowContent)`
 
 // TODO! Hover
 export const MobileFiltersRow = styled(HeaderRow)`
-  top: 5.929rem;
+  top: 4.857rem;
 
   cursor: pointer;
   user-select: none;

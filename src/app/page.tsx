@@ -43,7 +43,9 @@ export default function Home() {
     return `/deals?${query}`
   }, [currentPage, searchValue, filters])
 
-  const { data } = useSWR(requestURL, get())
+  const { data } = useSWR(requestURL, get(), {
+    revalidateOnFocus: false,
+  })
 
   useEffect(() => {
     if (data?.data) {

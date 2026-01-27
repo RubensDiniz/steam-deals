@@ -13,9 +13,11 @@ import {
 import { ListPriceRangeProps } from './types'
 import { IRenderMarkParams, IRenderTrackParams } from 'react-range/lib/types'
 
-// TODO! Look at SpanSelectorField
+// TODO! Look at SpanSelectorField to review
 export const ListPriceRange = ({ onUpdateRange }: ListPriceRangeProps) => {
   const [rangeValues, setRangeValues] = useState([0, 15])
+
+  const priceStep = 2.5
 
   const handleChange = useCallback((values: number[]) => {
     if (values[0] < values[1]) setRangeValues(values)
@@ -38,8 +40,7 @@ export const ListPriceRange = ({ onUpdateRange }: ListPriceRangeProps) => {
     []
   )
 
-  const priceStep = 2.5
-
+  // We memo the range renders for performance reasons
   const trackBackground = useMemo(
     () =>
       getTrackBackground({
@@ -83,7 +84,6 @@ export const ListPriceRange = ({ onUpdateRange }: ListPriceRangeProps) => {
     [rangeValues]
   )
 
-  // TODO! Show all price steps on higher resolutions?
   return (
     <RangeContainer>
       <RangeHeader>

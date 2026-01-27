@@ -2,6 +2,7 @@ import { ListWrapper } from './styles'
 import { GameListProps } from './types'
 import { GameCard, SkeletonGameCard } from '@/components/GameCard'
 import { useScreenSize } from '@/components/ScreenSizeProvider'
+import { useMemo } from 'react'
 
 // TODO! "No games found" design
 export const GameList = ({
@@ -13,26 +14,37 @@ export const GameList = ({
 }: GameListProps) => {
   const { size } = useScreenSize()
 
+  const skeletonCount = useMemo(() => {
+    if (size === 'small') return 2
+    if (size === 'medium') return 3
+    return 4
+  }, [size])
+
+  const initialSkeletons = useMemo(
+    () =>
+      Array.from({ length: 20 }, (_, i) => (
+        <SkeletonGameCard index={(i % 4) + i / 4} key={`initial-skeleton-${i}`} />
+      )),
+    []
+  )
+
+  const loadingSkeletons = useMemo(
+    () =>
+      Array.from({ length: skeletonCount }, (_, i) => (
+        <SkeletonGameCard index={i % 4} key={`loading-skeleton-${i}`} />
+      )),
+    [skeletonCount]
+  )
+
   // TODO! Check if offset is correct on all resolutions
-  // TODO! Duplicated games when switching tabs... investigate!
   return (
     <ListWrapper onEndOfList={onEndOfList} disabled={paginationDisabled} offset={276}>
       {initialLoading ? (
-        Array.from({ length: 20 }, (_, i) => <SkeletonGameCard index={(i % 4) + i / 4} key={i} />)
+        initialSkeletons
       ) : (
         <>
-          {games.map(
-            (game) =>
-              game && (
-                <div key={game.steamAppID}>
-                  <GameCard game={game} />
-                </div>
-              )
-          )}
-          {!isLastPage &&
-            Array.from({ length: size === 'small' ? 2 : size === 'medium' ? 3 : 4 }, (_, i) => (
-              <SkeletonGameCard index={i % 4} key={i} />
-            ))}
+          {games.map((game) => game && <GameCard key={game.steamAppID} game={game} />)}
+          {!isLastPage && loadingSkeletons}
         </>
       )}
     </ListWrapper>

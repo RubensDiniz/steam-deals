@@ -73,6 +73,22 @@ export const DropdownReference = styled.button`
   }
 `
 
+export const SelectArrow = styled.div`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+
+  pointer-events: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-size: 1.25rem;
+  }
+`
+
 // TODO!
 export const DropdownMenu = styled.div`
   background: #1b2838;

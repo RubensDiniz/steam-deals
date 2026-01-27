@@ -15,6 +15,7 @@ import {
   DropdownMenu,
   DropdownReference,
   DropdownWrapper,
+  SelectArrow,
   SortContainer,
   SortDirectionButton,
   SortLabel,
@@ -80,6 +81,11 @@ export const ListSortBy = ({
       <DropdownWrapper>
         <DropdownReference ref={refs.setReference} {...getReferenceProps()}>
           <span>{selectedLabel}</span>
+          <SelectArrow>
+            <span className="material-symbols-outlined">
+              {isOpen ? 'expand_less' : 'expand_more'}
+            </span>
+          </SelectArrow>
         </DropdownReference>
         {isOpen && (
           <DropdownMenu ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>

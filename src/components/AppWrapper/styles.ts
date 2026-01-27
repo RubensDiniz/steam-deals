@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import { MediumPlusScreen } from '@/components/Theme'
 
-// TODO! COLOR
+// TODO! COLORS
 export const globalStyles = css`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
@@ -34,7 +34,7 @@ export const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  padding-top: 12.429rem;
+  padding-top: 10.857rem;
 
   ${MediumPlusScreen} {
     padding-top: 13.714rem;
