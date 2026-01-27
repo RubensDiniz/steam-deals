@@ -8,10 +8,18 @@ declare module '@emotion/react' {
         background: string
         backgroundDark: string
         shadow: string
-        discountLight: string
-        discountDark: string
         border: string
-        originalPrice: string
+      }
+      discountBadge: {
+        lightGreen: string
+        darkGreen: string
+        lightGray: string
+        darkGray: string
+      }
+      rating: {
+        green: string
+        yellow: string
+        red: string
       }
     }
     fonts: {

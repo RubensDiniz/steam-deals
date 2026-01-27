@@ -1,16 +1,14 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { debounce } from 'lodash'
-import { ListSearchWrapper } from './styles'
+import { ListSearchWrapper, ResetIcon, SearchIcon, SearchInput } from './styles'
 import { ListSearchTypes } from './types'
 
-// TODO! Placeholder prop?
 export const ListSearch = ({ onSearch }: ListSearchTypes) => {
   const hasInitialized = useRef(false)
   const [value, setValue] = useState('')
 
   const debouncedSearch = useMemo(() => {
     return debounce((query: string) => {
-      console.log('a')
       onSearch(query)
     }, 500)
   }, [onSearch])
@@ -29,8 +27,13 @@ export const ListSearch = ({ onSearch }: ListSearchTypes) => {
 
   return (
     <ListSearchWrapper>
-      <input value={value} onChange={handleChange} />
-      {/*{value.length ? <Reset onClick={handleReset} /> : null} TODO! */}
+      <SearchIcon className="material-symbols-outlined">search</SearchIcon>
+      <SearchInput value={value} onChange={handleChange} placeholder="Search for games..." />
+      {value.length ? (
+        <ResetIcon className="material-symbols-outlined" onClick={handleReset}>
+          close
+        </ResetIcon>
+      ) : null}
     </ListSearchWrapper>
   )
 }

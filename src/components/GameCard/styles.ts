@@ -6,6 +6,7 @@ import { makeSkeletonBackgroundAnimation } from '@/utils'
 import Link from 'next/link'
 import { theme } from '@/components/Theme'
 
+// TODO! Hover styles!
 const BaseCardStyles = css`
   display: flex;
   flex-direction: column;
@@ -87,6 +88,7 @@ export const ButtonContainer = styled.div`
   opacity: 0;
   transition: opacity 0.2s ease;
 
+  /* TODO! */
   background-color: #344654;
 `
 
@@ -133,62 +135,34 @@ export const StatTooltip = styled.div`
   flex-direction: column;
 `
 
-// TODO! Colors
 export const GameRatingColumn = styled(StatColumn)`
   color: ${({ theme }) => theme.colors.card.backgroundDark};
 
   &[data-rating='high'] {
-    background-color: #66cc33;
+    background-color: ${({ theme }) => theme.colors.rating.green};
   }
 
   &[data-rating='medium'] {
-    background-color: #ffcc33;
+    background-color: ${({ theme }) => theme.colors.rating.yellow};
   }
 
   &[data-rating='low'] {
-    background-color: #ff3333;
+    background-color: ${({ theme }) => theme.colors.rating.red};
     color: ${({ theme }) => theme.colors.card.title};
   }
 `
 
-/* TODO! Delete this
-&[data-rating='very-high'] {
-    background-color: #66cc33;
-  }
-
-  &[data-rating='high'] {
-    background-color: #66cc33;
-  }
-
-  &[data-rating='medium'] {
-    background-color: #ffcc33;
-  }
-
-  &[data-rating='low'] {
-    background-color: #ff3333;
-    color: ${({ theme }) => theme.colors.card.title};
-  }
-
-  &[data-rating='very-low'] {
-    background-color: #ff3333;
-    color: ${({ theme }) => theme.colors.card.title};
-  }
- */
-
-// TODO! COLORS
 export const DealRatingColumn = styled(StatColumn)`
-  color: ${({ theme }) => theme.colors.card.originalPrice};
-
   &[data-rating='high'] {
-    color: #66cc33;
+    color: ${({ theme }) => theme.colors.rating.green};
   }
 
   &[data-rating='medium'] {
-    color: #ffcc33;
+    color: ${({ theme }) => theme.colors.rating.yellow};
   }
 
   &[data-rating='low'] {
-    color: #ff3333;
+    color: ${({ theme }) => theme.colors.rating.red};
   }
 `
 
@@ -200,47 +174,6 @@ export const PriceColumn = styled.div`
   flex: 1;
 
   border-left: 1px solid ${({ theme }) => theme.colors.card.border};
-`
-
-export const DiscountBadge = styled.span`
-  height: 2.286rem;
-  padding: 0 0.429rem;
-
-  color: ${({ theme }) => theme.colors.card.discountLight};
-  font-size: 1.786rem;
-  font-weight: 700;
-  line-height: 2.286rem;
-
-  background-color: ${({ theme }) => theme.colors.card.discountDark};
-`
-
-// TODO! COLOR
-export const PriceContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 0 0.429rem 0 0.786rem;
-  height: 2.286rem;
-  max-width: 4.4rem;
-
-  line-height: 1;
-
-  background-color: #344654;
-`
-
-export const OriginalPrice = styled.span`
-  color: ${({ theme }) => theme.colors.card.originalPrice};
-  font-size: 0.786rem;
-  line-height: 0.857rem;
-  text-decoration: line-through;
-`
-
-export const CurrentPrice = styled.span`
-  color: ${({ theme }) => theme.colors.card.discountLight};
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.143rem;
 `
 
 // TODO! Calculate bottom padding properly?

@@ -14,15 +14,12 @@ import {
   StatLabel,
   StatValue,
   PriceColumn,
-  DiscountBadge,
-  PriceContainer,
-  OriginalPrice,
-  CurrentPrice,
   DealRatingColumn,
   StatTooltip,
 } from './styles'
 import { useState } from 'react'
 import { Tooltip } from '@/components/Tooltip'
+import { DiscountContainer, PriceBadge, PriceContainer } from '@/components/PriceBadge'
 
 export const GameCard = ({ game }: GameCardProps) => {
   const [imageSrc, setImageSrc] = useState(
@@ -48,7 +45,8 @@ export const GameCard = ({ game }: GameCardProps) => {
       <GameInfo>
         <GameInfoHeader>
           <GameTitle>{game.title}</GameTitle>
-          <ButtonContainer data-role="card-action">🛈</ButtonContainer>
+          {/* TODO! Button + modal */}
+          {/*<ButtonContainer data-role="card-action">🛈</ButtonContainer>*/}
         </GameInfoHeader>
         <StatsFooter>
           <Tooltip
@@ -72,11 +70,13 @@ export const GameCard = ({ game }: GameCardProps) => {
           </DealRatingColumn>
 
           <PriceColumn>
-            <DiscountBadge>-{Math.round(Number(game.savings))}%</DiscountBadge>
-            <PriceContainer>
-              <OriginalPrice>${game.normalPrice}</OriginalPrice>
-              <CurrentPrice>${game.salePrice}</CurrentPrice>
-            </PriceContainer>
+            <PriceBadge>
+              <DiscountContainer>-{Math.round(Number(game.savings))}%</DiscountContainer>
+              <PriceContainer>
+                <span data-price="original">${game.normalPrice}</span>
+                <span data-price="current">${game.salePrice}</span>
+              </PriceContainer>
+            </PriceBadge>
           </PriceColumn>
         </StatsFooter>
       </GameInfo>
