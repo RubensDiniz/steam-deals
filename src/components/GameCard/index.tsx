@@ -3,7 +3,6 @@ import { Game, GameCardProps, SkeletonGameCardProps } from './types'
 import {
   Card,
   GameImage,
-  SkeletonContent,
   SkeletonCard,
   GameInfo,
   GameInfoHeader,
@@ -16,8 +15,15 @@ import {
   PriceColumn,
   DealRatingColumn,
   StatTooltip,
+  SkeletonImage,
+  SkeletonHeader,
+  SkeletonText,
+  SkeletonStatColumn,
+  SkeletonStatFooter,
+  SkeletonPriceColumn,
+  SkeletonPrice,
 } from './styles'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Tooltip } from '@/components/Tooltip'
 import { DiscountContainer, PriceBadge, PriceContainer } from '@/components/PriceBadge'
 
@@ -84,11 +90,29 @@ export const GameCard = ({ game }: GameCardProps) => {
   )
 }
 
-// TODO!
-export const SkeletonGameCard = ({ index }: SkeletonGameCardProps) => (
-  <SkeletonCard index={index}>
-    <SkeletonContent />
-  </SkeletonCard>
-)
+export const SkeletonGameCard = ({ index }: SkeletonGameCardProps) => {
+  const textWidth = useMemo(() => {
+    const min = 25
+    const max = 80
+    const minute = new Date().getMinutes()
+    return min + (((minute + (index ?? 0)) * 37) % (max - min))
+  }, [index])
+
+  return (
+    <SkeletonCard index={index}>
+      <SkeletonImage data-skeleton={'true'} />
+      <SkeletonHeader>
+        <SkeletonText width={textWidth} data-skeleton={'true'} />
+      </SkeletonHeader>
+      <SkeletonStatFooter>
+        <SkeletonStatColumn data-skeleton={'true'} />
+        <SkeletonStatColumn data-skeleton={'true'} />
+        <SkeletonPriceColumn>
+          <SkeletonPrice data-skeleton={'true'} />
+        </SkeletonPriceColumn>
+      </SkeletonStatFooter>
+    </SkeletonCard>
+  )
+}
 
 export type { Game }

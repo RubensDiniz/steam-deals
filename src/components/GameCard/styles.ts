@@ -176,25 +176,62 @@ export const PriceColumn = styled.div`
   border-left: 1px solid ${({ theme }) => theme.colors.card.border};
 `
 
-// TODO! Calculate bottom padding properly?
 // TODO! Replace colors...
 export const SkeletonCard = styled.div<SkeletonGameCardProps>`
   ${BaseCardStyles};
 
-  animation: ${({ index }) =>
-    index !== undefined
-      ? css`
-          ${makeSkeletonBackgroundAnimation('#383838', '#767676')} 3s ease infinite
-        `
-      : 'none'};
-  animation-delay: ${({ index }) => (index ? `${0.1 * index}s` : 0)};
-
-  padding-bottom: 2rem;
+  & [data-skeleton='true'] {
+    animation: ${({ index }) =>
+      index !== undefined
+        ? css`
+            ${makeSkeletonBackgroundAnimation('#2a3f5a', '#3d5675')} 1.5s ease infinite
+          `
+        : 'none'};
+    animation-delay: ${({ index }) => (index ? `${0.1 * index}s` : 0)};
+  }
 `
 
-export const SkeletonContent = styled.div`
-  //max-width: 100%;
-  //height: 100%;
+export const SkeletonImage = styled.div`
+  height: 10.714rem;
+  width: 22.857rem;
 
   aspect-ratio: 2.1395;
+`
+
+export const SkeletonHeader = styled.div`
+  height: 5.071rem;
+  padding: 0.857rem;
+`
+
+interface SkeletonTextProps {
+  width: number
+}
+
+export const SkeletonText = styled.div<SkeletonTextProps>`
+  height: 1.4rem;
+  width: ${({ width }) => width}%;
+  border-radius: 0.286rem;
+`
+
+export const SkeletonStatFooter = styled(StatsFooter)`
+  height: 3.857rem;
+`
+
+export const SkeletonStatColumn = styled.div`
+  height: 100%;
+  width: 5.357rem;
+  flex: 1;
+
+  border-right: 1px solid ${({ theme }) => theme.colors.card.border};
+
+  &:last-of-type {
+    border-right: none;
+  }
+`
+
+export const SkeletonPriceColumn = styled(PriceColumn)``
+
+export const SkeletonPrice = styled.div`
+  width: 90%;
+  height: 2.286rem;
 `

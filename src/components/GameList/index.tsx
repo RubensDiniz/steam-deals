@@ -14,12 +14,6 @@ export const GameList = ({
 }: GameListProps) => {
   const { size } = useScreenSize()
 
-  const skeletonCount = useMemo(() => {
-    if (size === 'small') return 2
-    if (size === 'medium') return 3
-    return 4
-  }, [size])
-
   const initialSkeletons = useMemo(
     () =>
       Array.from({ length: 20 }, (_, i) => (
@@ -28,7 +22,13 @@ export const GameList = ({
     []
   )
 
-  const loadingSkeletons = useMemo(
+  const skeletonCount = useMemo(() => {
+    if (size === 'small') return 2
+    if (size === 'medium') return 3
+    return 4
+  }, [size])
+
+  const bottomSkeletons = useMemo(
     () =>
       Array.from({ length: skeletonCount }, (_, i) => (
         <SkeletonGameCard index={i % 4} key={`loading-skeleton-${i}`} />
@@ -44,7 +44,7 @@ export const GameList = ({
       ) : (
         <>
           {games.map((game) => game && <GameCard key={game.steamAppID} game={game} />)}
-          {!isLastPage && loadingSkeletons}
+          {!isLastPage && bottomSkeletons}
         </>
       )}
     </ListWrapper>
