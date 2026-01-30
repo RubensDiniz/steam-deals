@@ -54,8 +54,7 @@ export const GameList = ({
       <NoResultsTitle>No games found</NoResultsTitle>
 
       <NoResultsDescription>
-        We couldn't find any games matching your search criteria. Try adjusting your filters or
-        search terms.
+        {`We couldn't find any games matching your search criteria. Try adjusting your filters or search terms.`}
       </NoResultsDescription>
 
       <ClearFiltersButton onClick={onClearFilters}>Clear all filters</ClearFiltersButton>
