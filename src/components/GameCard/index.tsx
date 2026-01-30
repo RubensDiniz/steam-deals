@@ -7,7 +7,6 @@ import {
   GameInfo,
   GameInfoHeader,
   GameTitle,
-  ButtonContainer,
   StatsFooter,
   GameRatingColumn,
   StatLabel,
