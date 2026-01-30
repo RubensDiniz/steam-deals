@@ -38,12 +38,22 @@ export default function Home() {
     []
   )
 
+  const onClearFilters = useCallback(() => {
+    setCurrentPage(1)
+    setLoadedGames([])
+    setIsLastPage(false)
+    setIsLoadingPage(true)
+    setFilters(new Map())
+  }, [])
+
   const requestURL = useMemo(() => {
     const query = buildQuery(currentPage, searchValue, filters)
     return `/deals?${query}`
   }, [currentPage, searchValue, filters])
 
-  const { data } = useSWR(requestURL, get())
+  const { data } = useSWR(requestURL, get(), {
+    revalidateOnFocus: false,
+  })
 
   useEffect(() => {
     if (data?.data) {
@@ -61,23 +71,19 @@ export default function Home() {
   }, [data, currentPage])
 
   return (
-    <div style={{ width: '100%', padding: '80px 80px 0' }}>
+    <ListContext.Provider value={{ onSearch, filters, onUpdateFilters }}>
       <GameList
         games={loadedGames}
         initialLoading={isLoadingPage && currentPage === 1}
-        // initialLoading={true}
-        // TODO! Treat duplicated items (one-offs)
         paginationDisabled={isLoadingPage || isLastPage}
-        // paginationDisabled={true}
         isLastPage={isLastPage}
+        onClearFilters={onClearFilters}
         onEndOfList={() => {
           setIsLoadingPage(true)
           setCurrentPage((prev) => prev + 1)
         }}
       />
-      <ListContext.Provider value={{ onSearch, filters, onUpdateFilters }}>
-        <PageHeader />
-      </ListContext.Provider>
-    </div>
+      <PageHeader />
+    </ListContext.Provider>
   )
 }

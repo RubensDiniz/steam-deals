@@ -6,4 +6,5 @@ export type GameListProps = {
   paginationDisabled: boolean
   isLastPage: boolean
   onEndOfList: () => void
+  onClearFilters: () => void
 }

@@ -6,5 +6,4 @@ export type PaginationObserverProps = {
   disabled?: boolean
   className?: string
   children?: ReactNode
-  as?: keyof JSX.IntrinsicElements
 }

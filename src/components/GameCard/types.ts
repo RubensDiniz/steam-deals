@@ -1,4 +1,3 @@
-// TODO! put this somewhere else?
 export type Game = {
   internalName: string
   title: string

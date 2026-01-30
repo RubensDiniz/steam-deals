@@ -16,19 +16,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Quick Steam Deals',
-  description: 'TODO',
+  description: 'A listing of the best deals Steam has today',
 }
 
 export default function RootLayout({
-     children,
-   }: Readonly<{
-  children: ReactNode;
+  children,
+}: Readonly<{
+  children: ReactNode
 }>) {
   return (
     <html lang="en">
-    <body className={`${geistSans.variable} ${geistMono.variable}`}>
-    <AppWrapper>{children}</AppWrapper>
-    </body>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <AppWrapper>{children}</AppWrapper>
+      </body>
     </html>
   )
 }
