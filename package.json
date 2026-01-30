@@ -1,6 +1,6 @@
 {
   "name": "steam-deals",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -9,10 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@floating-ui/react": "^0.27.16",
+    "@types/lodash": "^4.17.20",
     "axios": "^1.10.0",
-    "next": "15.3.4",
+    "lodash": "^4.17.21",
+    "next": "^15.5.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-range": "^1.10.0",
     "swr": "^2.3.3"
   },
   "devDependencies": {

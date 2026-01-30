@@ -1,95 +1,89 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
+import useSWR from 'swr'
+import { get } from '@/hooks'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Game } from '@/components/GameCard'
+import { GameList } from '@/components/GameList'
+import { buildQuery } from '@/utils'
+import { ListContext, FilterType } from '@/components/ListContext'
+import { PageHeader } from '@/components/PageHeader'
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [searchValue, setSearchValue] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [isLastPage, setIsLastPage] = useState(false)
+  const [isLoadingPage, setIsLoadingPage] = useState(true)
+  const [loadedGames, setLoadedGames] = useState<Game[]>([])
+  const [filters, setFilters] = useState<Map<string, FilterType>>(new Map())
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  const onSearch = useCallback((query: string) => {
+    setCurrentPage(1)
+    setLoadedGames([])
+    setIsLastPage(false)
+    setIsLoadingPage(true)
+    setSearchValue(query)
+  }, [])
+
+  const onUpdateFilters = useCallback(
+    (updater: (prev: Map<string, FilterType>) => Map<string, FilterType>) => {
+      setFilters((prev) => {
+        const updatedFilters = updater(prev)
+        setCurrentPage(1)
+        setLoadedGames([])
+        setIsLastPage(false)
+        setIsLoadingPage(true)
+        return updatedFilters
+      })
+    },
+    []
+  )
+
+  const onClearFilters = useCallback(() => {
+    setCurrentPage(1)
+    setLoadedGames([])
+    setIsLastPage(false)
+    setIsLoadingPage(true)
+    setFilters(new Map())
+  }, [])
+
+  const requestURL = useMemo(() => {
+    const query = buildQuery(currentPage, searchValue, filters)
+    return `/deals?${query}`
+  }, [currentPage, searchValue, filters])
+
+  const { data } = useSWR(requestURL, get(), {
+    revalidateOnFocus: false,
+  })
+
+  useEffect(() => {
+    if (data?.data) {
+      const newGames = data.data ?? []
+
+      setIsLoadingPage(false)
+
+      if (newGames.length === 0) {
+        setIsLastPage(true)
+        return
+      }
+
+      setLoadedGames((prev) => (currentPage === 1 ? newGames : [...prev, ...newGames]))
+    }
+  }, [data, currentPage])
+
+  return (
+    <ListContext.Provider value={{ onSearch, filters, onUpdateFilters }}>
+      <GameList
+        games={loadedGames}
+        initialLoading={isLoadingPage && currentPage === 1}
+        paginationDisabled={isLoadingPage || isLastPage}
+        isLastPage={isLastPage}
+        onClearFilters={onClearFilters}
+        onEndOfList={() => {
+          setIsLoadingPage(true)
+          setCurrentPage((prev) => prev + 1)
+        }}
+      />
+      <PageHeader />
+    </ListContext.Provider>
   )
 }
