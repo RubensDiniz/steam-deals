@@ -38,6 +38,14 @@ export default function Home() {
     []
   )
 
+  const onClearFilters = useCallback(() => {
+    setCurrentPage(1)
+    setLoadedGames([])
+    setIsLastPage(false)
+    setIsLoadingPage(true)
+    setFilters(new Map())
+  }, [])
+
   const requestURL = useMemo(() => {
     const query = buildQuery(currentPage, searchValue, filters)
     return `/deals?${query}`
@@ -63,23 +71,19 @@ export default function Home() {
   }, [data, currentPage])
 
   return (
-    <>
+    <ListContext.Provider value={{ onSearch, filters, onUpdateFilters }}>
       <GameList
         games={loadedGames}
         initialLoading={isLoadingPage && currentPage === 1}
-        // initialLoading={true}
-        // TODO! Treat duplicated items (one-offs)
         paginationDisabled={isLoadingPage || isLastPage}
-        // paginationDisabled={true}
         isLastPage={isLastPage}
+        onClearFilters={onClearFilters}
         onEndOfList={() => {
           setIsLoadingPage(true)
           setCurrentPage((prev) => prev + 1)
         }}
       />
-      <ListContext.Provider value={{ onSearch, filters, onUpdateFilters }}>
-        <PageHeader />
-      </ListContext.Provider>
-    </>
+      <PageHeader />
+    </ListContext.Provider>
   )
 }

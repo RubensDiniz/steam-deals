@@ -2,8 +2,10 @@ import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from '
 import { debounce } from 'lodash'
 import { ListSearchWrapper, ResetIcon, SearchIcon, SearchInput } from './styles'
 import { ListSearchTypes } from './types'
+import { useListContext } from '@/components/ListContext'
 
 export const ListSearch = ({ onSearch }: ListSearchTypes) => {
+  const { filters } = useListContext()
   const hasInitialized = useRef(false)
   const [value, setValue] = useState('')
 
@@ -24,6 +26,14 @@ export const ListSearch = ({ onSearch }: ListSearchTypes) => {
     if (hasInitialized.current) debouncedSearch(value)
     else hasInitialized.current = true
   }, [value, debouncedSearch])
+
+  useEffect(() => {
+    if (filters.size === 0) {
+      hasInitialized.current = false
+      setValue('')
+      onSearch('')
+    }
+  }, [onSearch, filters])
 
   return (
     <ListSearchWrapper>

@@ -79,7 +79,7 @@ export const ListSortBy = ({
       <SortLabel>Sort by</SortLabel>
 
       <DropdownWrapper>
-        <DropdownReference ref={refs.setReference} {...getReferenceProps()}>
+        <DropdownReference ref={refs.setReference} isOpen={isOpen} {...getReferenceProps()}>
           <span>{selectedLabel}</span>
           <SelectArrow>
             <span className="material-symbols-outlined">

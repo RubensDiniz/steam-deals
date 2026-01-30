@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { LargeScreen, MediumPlusScreen, MediumScreen, WideScreen } from '@/components/Theme'
 import { DiscountContainer, PriceContainer } from '@/components/PriceBadge'
-import { RangeContainer } from '@/components/ListPriceRange/styles'
 
 export const HeaderRow = styled.div`
   display: flex;
@@ -113,7 +112,6 @@ export const MobileFiltersRow = styled(HeaderRow)`
   }
 `
 
-// TODO!
 export const FilterToggleButton = styled.div`
   display: flex;
   align-items: center;

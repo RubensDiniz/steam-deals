@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { MediumPlusScreen, SmallPlusScreen } from '@/components/Theme'
 
 export const SortContainer = styled.div`
   display: flex;
@@ -6,62 +7,62 @@ export const SortContainer = styled.div`
   gap: 0.5rem;
   width: 100%;
 
-  // TODO!
-  @media (min-width: 1024px) {
+  ${MediumPlusScreen} {
     width: auto;
     align-items: center;
   }
 `
 
-// TODO! Colors
 export const SortLabel = styled.span`
   align-self: start;
+
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   color: #6b7280;
   letter-spacing: 0.05em;
   white-space: nowrap;
-
-  // TODO!
-  @media (min-width: 1024px) {
-    padding-top: 0;
-  }
 `
 
 export const DropdownWrapper = styled.div`
   display: flex;
-  gap: 0.5rem;
   width: 100%;
 
-  // TODO!
-  @media (min-width: 1024px) {
+  ${SmallPlusScreen} {
     width: 20rem;
   }
 `
 
-// TODO!
-export const DropdownReference = styled.button`
+interface DropdownReferenceProps {
+  isOpen: boolean
+}
+
+export const DropdownReference = styled.button<DropdownReferenceProps>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-height: 2.286rem;
   width: 100%;
-  background: #2a475e;
+  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  position: relative;
+
   color: white;
   font-size: 1rem;
   font-weight: 500;
-  padding: 0.5rem 0.75rem 0.5rem 1rem;
-  border-radius: 2px 2px 0 0;
-  border: 1px solid #4b617c;
-  border-bottom-color: #2a475e;
-  outline: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  display: flex;
-  max-height: 2.286rem;
-  align-items: center;
-  justify-content: space-between;
 
-  position: relative;
-  z-index: 50;
+  border-radius: ${({ isOpen }) => (isOpen ? '0.286rem 0 0 0' : '0.286rem 0 0 0.286rem')};
+  border: 1px solid #4b617c;
+  border-bottom-color: ${({ isOpen }) => (isOpen ? '#2a475e' : '#4b617c')};
+  outline: none;
+
+  background: #2a475e;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+  transition: background 0.3s ease;
+
+  cursor: pointer;
+
+  z-index: 10;
 
   &:hover {
     background: #3d5f7a;
@@ -78,11 +79,13 @@ export const SelectArrow = styled.div`
   top: 0.5rem;
   right: 0.5rem;
 
-  pointer-events: none;
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  color: white;
+
+  pointer-events: none;
 
   span {
     font-size: 1.25rem;
@@ -109,9 +112,13 @@ export const DropdownItem = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.625rem 0.75rem;
+
   border-left: 3px solid transparent;
+
   background: transparent;
+
   cursor: pointer;
+
   transition: background 0.3s ease;
 
   &:hover {
@@ -146,22 +153,27 @@ export const DropdownItem = styled.div`
   }
 `
 
-// TODO!
 export const SortDirectionButton = styled.button`
-  background: #2a475e;
-  color: white;
-  width: 2.5rem;
-  flex-shrink: 0;
-  border-radius: 2px;
-  border: 1px solid #4b617c;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  flex-shrink: 0;
+  width: 2.5rem;
   max-height: 2.286rem;
-  transition: background 0.3s ease;
+
+  color: white;
+
+  border-radius: 0 0.286rem 0.286rem 0;
+  border: 1px solid #4b617c;
+  border-left-width: 0;
   outline: none;
+
+  background: #2a475e;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+  cursor: pointer;
+
+  transition: background 0.3s ease;
 
   &:hover {
     background: #3d5f7a;

@@ -1,16 +1,23 @@
-import { ListWrapper } from './styles'
+import {
+  ClearFiltersButton,
+  ListWrapper,
+  NoResultsContainer,
+  NoResultsDescription,
+  NoResultsIconWrapper,
+  NoResultsTitle,
+} from './styles'
 import { GameListProps } from './types'
 import { GameCard, SkeletonGameCard } from '@/components/GameCard'
 import { useScreenSize } from '@/components/ScreenSizeProvider'
 import { useMemo } from 'react'
 
-// TODO! "No games found" design
 export const GameList = ({
   games,
   initialLoading,
   paginationDisabled,
   isLastPage,
   onEndOfList,
+  onClearFilters,
 }: GameListProps) => {
   const { size } = useScreenSize()
 
@@ -36,9 +43,25 @@ export const GameList = ({
     [skeletonCount]
   )
 
-  // TODO! Check if offset is correct on all resolutions
-  return (
-    <ListWrapper onEndOfList={onEndOfList} disabled={paginationDisabled} offset={276}>
+  const loadingOffset = useMemo(() => (size === 'small' ? 1040 : 740), [size])
+
+  return !games.length && !initialLoading ? (
+    <NoResultsContainer>
+      <NoResultsIconWrapper>
+        <span className="material-symbols-outlined">search_off</span>
+      </NoResultsIconWrapper>
+
+      <NoResultsTitle>No games found</NoResultsTitle>
+
+      <NoResultsDescription>
+        We couldn't find any games matching your search criteria. Try adjusting your filters or
+        search terms.
+      </NoResultsDescription>
+
+      <ClearFiltersButton onClick={onClearFilters}>Clear all filters</ClearFiltersButton>
+    </NoResultsContainer>
+  ) : (
+    <ListWrapper onEndOfList={onEndOfList} disabled={paginationDisabled} offset={loadingOffset}>
       {initialLoading ? (
         initialSkeletons
       ) : (

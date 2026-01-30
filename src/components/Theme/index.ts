@@ -8,6 +8,7 @@ export const LargePlusScreen = `@media (min-width: ${LARGE_SCREEN_MIN_SIZE}px)`
 export const LargeScreen = `@media screen and (min-width: ${LARGE_SCREEN_MIN_SIZE}px) and (max-width: ${WIDE_SCREEN_MIN_SIZE - 1}px)`
 export const MediumPlusScreen = `@media (min-width: ${MEDIUM_SCREEN_MIN_SIZE}px)`
 export const MediumScreen = `@media screen and (min-width: ${MEDIUM_SCREEN_MIN_SIZE}px) and (max-width: ${LARGE_SCREEN_MIN_SIZE - 1}px)`
+export const SmallPlusScreen = `@media (min-width: ${SMALL_SCREEN_MAX_SIZE}px)`
 export const SmallScreen = `@media screen and (max-width: ${SMALL_SCREEN_MAX_SIZE}px)`
 
 // TODO!

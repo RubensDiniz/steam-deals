@@ -23,9 +23,9 @@ export const PageHeader = () => {
   const sortOptions: SortOption[] = [
     { label: 'Deal Rating', value: 'DealRating' },
     { label: 'Reviews', value: 'Reviews' },
-    { label: 'Title', value: 'Title' },
     { label: 'Savings', value: 'Savings' },
     { label: 'Price', value: 'Price' },
+    { label: 'Title', value: 'Title' },
   ]
 
   const sortByValue = filters.get('sortBy') as SortOption['value'] | null

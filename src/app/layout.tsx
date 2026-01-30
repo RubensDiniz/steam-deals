@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Quick Steam Deals',
-  description: 'TODO!',
+  description: 'A listing of the best deals Steam has today',
 }
 
 export default function RootLayout({
